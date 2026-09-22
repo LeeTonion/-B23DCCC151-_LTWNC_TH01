@@ -1,22 +1,16 @@
-/**
- * BUỔI 3: REDUX TOOLKIT - MEMOIZED SELECTORS
- * File: src/features/assignments/assignmentsSelectors.ts
- * Sử dụng createSelector để tối ưu hóa tính toán và tránh re-render
- */
+
 
 import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from '../../app/store';
 import { isDueSoon, isOverdue } from '../../types/typeGuards';
 import { PRIORITY_CONFIG } from '../../utils/dateUtils';
 
-// Base selectors
 export const selectAllAssignments = (state: RootState) => state.assignments.items;
 export const selectAssignmentsStatus = (state: RootState) => state.assignments.status;
 export const selectAssignmentsError = (state: RootState) => state.assignments.error;
 export const selectFilterState = (state: RootState) => state.assignments.filter;
 export const selectToasts = (state: RootState) => state.assignments.toasts;
 
-/** Memoized Selector: Danh sách môn học duy nhất */
 export const selectUniqueSubjects = createSelector(
   [selectAllAssignments],
   (items) => {
@@ -25,7 +19,6 @@ export const selectUniqueSubjects = createSelector(
   }
 );
 
-/** Memoized Selector: Thống kê tổng quan số lượng bài tập */
 export const selectAssignmentStats = createSelector(
   [selectAllAssignments],
   (items) => {
@@ -47,7 +40,6 @@ export const selectAssignmentStats = createSelector(
   }
 );
 
-/** Memoized Selector: Danh sách bài tập sau khi lọc và sắp xếp */
 export const selectFilteredAssignments = createSelector(
   [selectAllAssignments, selectFilterState],
   (items, filter) => {
@@ -55,18 +47,15 @@ export const selectFilteredAssignments = createSelector(
 
     return items
       .filter((item) => {
-        // 1. Trạng thái
+        
         if (filter.status === 'COMPLETED' && !item.isCompleted) return false;
         if (filter.status === 'PENDING' && (item.isCompleted || isOverdue(item))) return false;
         if (filter.status === 'OVERDUE' && !isOverdue(item)) return false;
 
-        // 2. Môn học
         if (filter.subject && item.subject !== filter.subject) return false;
 
-        // 3. Mức độ ưu tiên
         if (filter.priority !== 'ALL' && item.priority !== filter.priority) return false;
 
-        // 4. Tìm kiếm từ khóa
         if (q) {
           const matchTitle = item.title.toLowerCase().includes(q);
           const matchSubject = item.subject.toLowerCase().includes(q);

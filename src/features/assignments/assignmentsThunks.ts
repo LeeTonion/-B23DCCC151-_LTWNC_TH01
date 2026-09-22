@@ -1,14 +1,9 @@
-/**
- * BUỔI 3: REDUX TOOLKIT + TYPESCRIPT - ASYNC THUNKS
- * File: src/features/assignments/assignmentsThunks.ts
- * Xử lý các Async Actions gọi tới Mock API
- */
+
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { mockAssignmentApi } from '../../api/mockAssignmentApi';
 import type { Assignment, CreateAssignmentDTO, UpdateAssignmentDTO } from '../../types/assignment.types';
 
-/** Thunk: Tải danh sách bài tập từ mock API khi ứng dụng khởi động */
 export const fetchAssignments = createAsyncThunk<
   Assignment[],
   void,
@@ -23,7 +18,6 @@ export const fetchAssignments = createAsyncThunk<
   }
 });
 
-/** Thunk: Thêm bài tập mới */
 export const addAssignment = createAsyncThunk<
   Assignment,
   CreateAssignmentDTO,
@@ -38,7 +32,6 @@ export const addAssignment = createAsyncThunk<
   }
 });
 
-/** Thunk: Đổi trạng thái hoàn thành */
 export const toggleAssignment = createAsyncThunk<
   Assignment,
   string,
@@ -53,7 +46,6 @@ export const toggleAssignment = createAsyncThunk<
   }
 });
 
-/** Thunk: Cập nhật thông tin bài tập */
 export const updateAssignment = createAsyncThunk<
   Assignment,
   { id: string; dto: UpdateAssignmentDTO },
@@ -68,7 +60,6 @@ export const updateAssignment = createAsyncThunk<
   }
 });
 
-/** Thunk: Xóa bài tập */
 export const deleteAssignment = createAsyncThunk<
   string,
   string,
@@ -83,7 +74,6 @@ export const deleteAssignment = createAsyncThunk<
   }
 });
 
-/** Thunk: Khôi phục dữ liệu mẫu ban đầu */
 export const resetToSampleAssignments = createAsyncThunk<
   Assignment[],
   void,

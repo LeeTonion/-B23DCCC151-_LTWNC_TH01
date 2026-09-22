@@ -1,16 +1,4 @@
-/**
- * BUỔI 2: REACT DESIGN PATTERNS - COMPOUND COMPONENT PATTERN
- * File: src/patterns/compound/AssignmentCard.tsx
- * 
- * Pattern minh họa:
- * <AssignmentCard assignment={item} onToggle={...} onDelete={...} onEdit={...}>
- *   <AssignmentCard.Header />
- *   <AssignmentCard.Title />
- *   <AssignmentCard.Countdown />
- *   <AssignmentCard.Meta />
- *   <AssignmentCard.Actions />
- * </AssignmentCard>
- */
+
 
 import React, { createContext, useContext } from 'react';
 import {
@@ -44,9 +32,6 @@ function useCardContext() {
   return context;
 }
 
-// -------------------------------------------------------------
-// 1. CONTAINER CHÍNH
-// -------------------------------------------------------------
 interface AssignmentCardProps {
   assignment: Assignment;
   onToggle: (id: string) => void;
@@ -77,9 +62,6 @@ export const AssignmentCard: React.FC<AssignmentCardProps> & {
   );
 };
 
-// -------------------------------------------------------------
-// 2. SUB-COMPONENT: HEADER
-// -------------------------------------------------------------
 AssignmentCard.Header = function AssignmentCardHeader({ className = '' }) {
   const { assignment } = useCardContext();
   const priorityInfo = PRIORITY_CONFIG[assignment.priority];
@@ -102,9 +84,6 @@ AssignmentCard.Header = function AssignmentCardHeader({ className = '' }) {
   );
 };
 
-// -------------------------------------------------------------
-// 3. SUB-COMPONENT: TITLE
-// -------------------------------------------------------------
 AssignmentCard.Title = function AssignmentCardTitle({ className = '' }) {
   const { assignment, onToggle } = useCardContext();
 
@@ -125,9 +104,6 @@ AssignmentCard.Title = function AssignmentCardTitle({ className = '' }) {
   );
 };
 
-// -------------------------------------------------------------
-// 4. SUB-COMPONENT: COUNTDOWN / TIME REMAINING
-// -------------------------------------------------------------
 AssignmentCard.Countdown = function AssignmentCardCountdown({ className = '' }) {
   const { assignment } = useCardContext();
   const countdown = useDeadlineCountdown(assignment.dueDate, assignment.isCompleted);
@@ -181,9 +157,6 @@ AssignmentCard.Countdown = function AssignmentCardCountdown({ className = '' }) 
   );
 };
 
-// -------------------------------------------------------------
-// 5. SUB-COMPONENT: META (DUE DATE & DESCRIPTION)
-// -------------------------------------------------------------
 AssignmentCard.Meta = function AssignmentCardMeta({ className = '' }) {
   const { assignment } = useCardContext();
 
@@ -200,9 +173,6 @@ AssignmentCard.Meta = function AssignmentCardMeta({ className = '' }) {
   );
 };
 
-// -------------------------------------------------------------
-// 6. SUB-COMPONENT: ACTIONS (EDIT & DELETE)
-// -------------------------------------------------------------
 AssignmentCard.Actions = function AssignmentCardActions({ className = '' }) {
   const { assignment, onDelete, onEdit } = useCardContext();
 

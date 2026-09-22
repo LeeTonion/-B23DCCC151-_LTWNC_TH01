@@ -1,15 +1,9 @@
-/**
- * BUỔI 1: TYPESCRIPT NÂNG CAO - GENERIC UTILITIES
- * File: src/utils/genericFilters.ts
- * Minh họa Generic Functions, Type Constraints (extends), Key Constraints (keyof T)
- */
 
-/** Generic Filter: Lọc mảng phần tử với bất kỳ predicate nào */
+
 export function filterItems<T>(items: T[], predicate: (item: T) => boolean): T[] {
   return items.filter(predicate);
 }
 
-/** Generic Sort: Sắp xếp mảng theo bất kỳ thuộc tính nào của T với kiểm tra kiểu chặt chẽ */
 export function sortItems<T, K extends keyof T>(
   items: T[],
   key: K,
@@ -36,7 +30,6 @@ export function sortItems<T, K extends keyof T>(
   });
 }
 
-/** Generic Search: Tìm kiếm trong mảng dựa trên nhiều trường văn bản */
 export function searchByFields<T>(
   items: T[],
   searchQuery: string,
@@ -56,7 +49,6 @@ export function searchByFields<T>(
   });
 }
 
-/** Generic Group By: Gom nhóm mảng theo 1 khóa cụ thể */
 export function groupBy<T, K extends string | number | symbol>(
   items: T[],
   keySelector: (item: T) => K

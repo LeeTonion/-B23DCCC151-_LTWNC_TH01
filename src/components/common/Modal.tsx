@@ -1,7 +1,4 @@
-/**
- * Reusable Modal Dialog
- * File: src/components/common/Modal.tsx
- */
+
 
 import React, { useEffect } from 'react';
 import { X } from 'lucide-react';

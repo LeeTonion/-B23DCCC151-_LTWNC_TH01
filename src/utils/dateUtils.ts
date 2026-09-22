@@ -1,7 +1,4 @@
-/**
- * Tiện ích xử lý Ngày giờ & Tính toán Deadline
- * File: src/utils/dateUtils.ts
- */
+
 
 import type { CountdownInfo, PriorityConfigMap, UrgencyTier } from '../types/assignment.types';
 
@@ -32,10 +29,6 @@ export const PRIORITY_CONFIG: PriorityConfigMap = {
   },
 };
 
-/**
- * Tính toán thời gian còn lại hoặc quá hạn của một deadline
- * Trả về thông tin chi tiết: "Còn X ngày Y giờ", "Quá hạn Z ngày" và mức độ khẩn cấp (tier)
- */
 export function calculateDeadlineInfo(
   dueDateString: string,
   isCompleted: boolean = false,
@@ -83,7 +76,7 @@ export function calculateDeadlineInfo(
       label = `Quá hạn ${days} ngày ${hours > 0 ? `${hours}h` : ''}`;
     }
   } else {
-    // Sắp đến hạn
+    
     if (totalHours < 24) {
       tier = 'URGENT';
       if (totalHours === 0) {
@@ -112,7 +105,6 @@ export function calculateDeadlineInfo(
   };
 }
 
-/** Định dạng ngày hiển thị theo chuẩn Việt Nam (VD: 23:59 Thứ Sáu, 26/09/2026) */
 export function formatFullDateTime(isoString: string): string {
   try {
     const date = new Date(isoString);
@@ -131,7 +123,6 @@ export function formatFullDateTime(isoString: string): string {
   }
 }
 
-/** Chuyển đổi Date sang định dạng ISO cục bộ cho input datetime-local */
 export function toLocalDatetimeInputString(date: Date): string {
   const pad = (n: number) => n.toString().padStart(2, '0');
   const yyyy = date.getFullYear();

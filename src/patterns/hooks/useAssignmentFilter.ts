@@ -1,8 +1,4 @@
-/**
- * BUỔI 2: REACT DESIGN PATTERNS - CUSTOM HOOKS
- * File: src/patterns/hooks/useAssignmentFilter.ts
- * Quản lý logic lọc, tìm kiếm và sắp xếp danh sách bài tập
- */
+
 
 import { useMemo, useState } from 'react';
 import type {
@@ -18,7 +14,7 @@ import { useDebounce } from './useDebounce';
 
 export interface FilterState {
   status: StatusFilter;
-  subject: string; // '' nghĩa là tất cả môn
+  subject: string; 
   priority: PriorityLevel | 'ALL';
   searchQuery: string;
   sortBy: SortField;
@@ -37,13 +33,11 @@ export function useAssignmentFilter(assignments: Assignment[]) {
 
   const debouncedSearch = useDebounce(filterState.searchQuery, 250);
 
-  // Danh sách các môn học duy nhất có trong hệ thống
   const uniqueSubjects = useMemo(() => {
     const set = new Set(assignments.map((a) => a.subject.trim()));
     return Array.from(set).filter(Boolean).sort();
   }, [assignments]);
 
-  // Thống kê nhanh số lượng theo từng bộ lọc
   const stats = useMemo(() => {
     const total = assignments.length;
     const completed = assignments.filter((a) => a.isCompleted).length;
@@ -62,22 +56,18 @@ export function useAssignmentFilter(assignments: Assignment[]) {
     };
   }, [assignments]);
 
-  // Áp dụng bộ lọc và sắp xếp
   const filteredAssignments = useMemo(() => {
     return assignments
       .filter((item) => {
-        // 1. Lọc theo trạng thái
+        
         if (filterState.status === 'COMPLETED' && !item.isCompleted) return false;
         if (filterState.status === 'PENDING' && (item.isCompleted || isOverdue(item))) return false;
         if (filterState.status === 'OVERDUE' && !isOverdue(item)) return false;
 
-        // 2. Lọc theo môn học
         if (filterState.subject && item.subject !== filterState.subject) return false;
 
-        // 3. Lọc theo mức độ ưu tiên
         if (filterState.priority !== 'ALL' && item.priority !== filterState.priority) return false;
 
-        // 4. Tìm kiếm từ khóa (tên bài tập, môn học, ghi chú)
         if (debouncedSearch) {
           const q = debouncedSearch.toLowerCase().trim();
           const matchTitle = item.title.toLowerCase().includes(q);
@@ -101,7 +91,7 @@ export function useAssignmentFilter(assignments: Assignment[]) {
           case 'priority': {
             const weightA = PRIORITY_CONFIG[a.priority].weight;
             const weightB = PRIORITY_CONFIG[b.priority].weight;
-            comparison = weightB - weightA; // Cao hơn đứng trước
+            comparison = weightB - weightA; 
             break;
           }
           case 'title': {

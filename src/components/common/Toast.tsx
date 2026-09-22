@@ -1,7 +1,4 @@
-/**
- * UI Toast Notification System
- * File: src/components/common/Toast.tsx
- */
+
 
 import React, { useEffect } from 'react';
 import { AlertCircle, CheckCircle2, Info, X, AlertTriangle } from 'lucide-react';

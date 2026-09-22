@@ -1,9 +1,4 @@
-/**
- * Assignment List Component
- * File: src/features/assignments/components/AssignmentList.tsx
- * 
- * Sử dụng Compound Component (AssignmentCard) kết hợp HOC (withUrgencyHighlight)
- */
+
 
 import React, { useState } from 'react';
 import { Loader2 } from 'lucide-react';
@@ -29,9 +24,6 @@ interface AssignmentItemProps {
   onEdit: (assignment: Assignment) => void;
 }
 
-// ----------------------------------------------------------------------
-// Áp dụng Compound Component + HOC withUrgencyHighlight
-// ----------------------------------------------------------------------
 const AssignmentItemWithHOC = withUrgencyHighlight<AssignmentItemProps>(
   ({ assignment, onToggle, onDelete, onEdit }) => {
     return (
@@ -59,7 +51,6 @@ export const AssignmentList: React.FC<{ onOpenAddModal: () => void }> = ({
   const status = useAppSelector(selectAssignmentsStatus);
   const filter = useAppSelector(selectFilterState);
 
-  // Modal State
   const [editingAssignment, setEditingAssignment] = useState<Assignment | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
@@ -80,7 +71,6 @@ export const AssignmentList: React.FC<{ onOpenAddModal: () => void }> = ({
     filter.priority !== 'ALL' ||
     filter.searchQuery !== '';
 
-  // Đang tải dữ liệu ban đầu
   if (status === 'loading' && assignments.length === 0) {
     return (
       <div className="loading-container">
@@ -90,7 +80,6 @@ export const AssignmentList: React.FC<{ onOpenAddModal: () => void }> = ({
     );
   }
 
-  // Danh sách rỗng
   if (assignments.length === 0) {
     return (
       <AssignmentEmptyState
@@ -115,14 +104,12 @@ export const AssignmentList: React.FC<{ onOpenAddModal: () => void }> = ({
         ))}
       </div>
 
-      {/* Edit Form Modal */}
       <AssignmentFormModal
         isOpen={Boolean(editingAssignment)}
         onClose={() => setEditingAssignment(null)}
         editingAssignment={editingAssignment}
       />
 
-      {/* Delete Confirmation Dialog */}
       <ConfirmDialog
         isOpen={Boolean(deletingId)}
         onClose={() => setDeletingId(null)}

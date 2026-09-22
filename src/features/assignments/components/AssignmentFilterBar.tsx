@@ -1,7 +1,4 @@
-/**
- * Assignment Filter Bar Component
- * File: src/features/assignments/components/AssignmentFilterBar.tsx
- */
+
 
 import React from 'react';
 import {
@@ -51,7 +48,7 @@ export const AssignmentFilterBar: React.FC = () => {
 
   return (
     <div className="filter-bar-container">
-      {/* Row 1: Status Filter Tabs (Compound-like Tab Bar) */}
+      
       <div className="status-tabs-row">
         <div className="status-tabs-list">
           {statusTabs.map((tab) => {
@@ -85,9 +82,8 @@ export const AssignmentFilterBar: React.FC = () => {
         )}
       </div>
 
-      {/* Row 2: Search and Dropdown Filters */}
       <div className="filter-controls-row">
-        {/* Search Input */}
+        
         <div className="search-input-wrapper">
           <Search size={16} className="search-icon" />
           <input
@@ -109,9 +105,8 @@ export const AssignmentFilterBar: React.FC = () => {
           )}
         </div>
 
-        {/* Filter Dropdowns */}
         <div className="dropdowns-group">
-          {/* Lọc theo môn học */}
+          
           <div className="select-wrapper">
             <select
               className="custom-select"
@@ -127,7 +122,6 @@ export const AssignmentFilterBar: React.FC = () => {
             </select>
           </div>
 
-          {/* Lọc theo độ ưu tiên */}
           <div className="select-wrapper">
             <select
               className="custom-select"
@@ -143,7 +137,6 @@ export const AssignmentFilterBar: React.FC = () => {
             </select>
           </div>
 
-          {/* Sắp xếp */}
           <div className="select-wrapper">
             <select
               className="custom-select"
@@ -157,7 +150,6 @@ export const AssignmentFilterBar: React.FC = () => {
             </select>
           </div>
 
-          {/* Nút đảo chiều sắp xếp (Asc/Desc) */}
           <button
             type="button"
             className="sort-order-btn"

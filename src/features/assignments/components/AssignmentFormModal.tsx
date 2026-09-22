@@ -1,13 +1,10 @@
-/**
- * Assignment Add/Edit Form Modal Component
- * File: src/features/assignments/components/AssignmentFormModal.tsx
- * Sử dụng Generic Custom Hook useFormValidation từ Buổi 2
- */
+
 
 import React, { useEffect, useState } from 'react';
 import { Calendar, Clock, Sparkles, Tag } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { Modal } from '../../../components/common/Modal';
+import { CustomDateTimePicker } from '../../../components/common/CustomDateTimePicker';
 import { useFormValidation, type ValidationSchema } from '../../../patterns/hooks/useFormValidation';
 import type { Assignment, CreateAssignmentDTO, PriorityLevel } from '../../../types/assignment.types';
 import { PRIORITY_CONFIG, toLocalDatetimeInputString } from '../../../utils/dateUtils';
@@ -55,7 +52,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
   const dispatch = useAppDispatch();
   const subjects = useAppSelector(selectUniqueSubjects);
 
-  // Mặc định hạn nộp là 23:59 ngày mai
   const getDefaultDueDate = () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -85,7 +81,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
     initialValues,
     validationSchema,
     onSubmit: async (formValues) => {
-      // Chuyển local datetime sang ISO chuẩn
+      
       const isoDueDate = new Date(formValues.dueDate).toISOString();
 
       if (editingAssignment) {
@@ -116,7 +112,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
     },
   });
 
-  // Khi modal mở lên hoặc đổi assignment đang sửa, điền sẵn form
   useEffect(() => {
     if (isOpen) {
       if (editingAssignment) {
@@ -139,7 +134,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
     }
   }, [isOpen, editingAssignment]);
 
-  // Phím tắt chọn nhanh hạn nộp (+1 ngày, +3 ngày, +1 tuần)
   const setQuickDueDate = (daysToAdd: number) => {
     const target = new Date();
     target.setDate(target.getDate() + daysToAdd);
@@ -160,7 +154,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
       maxWidth="580px"
     >
       <form onSubmit={handleSubmit} className="assignment-form" noValidate>
-        {/* Field 1: Môn học */}
+        
         <div className="form-group">
           <label className="form-label" htmlFor="subject">
             Môn học <span className="required">*</span>
@@ -187,7 +181,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
           )}
         </div>
 
-        {/* Field 2: Tên bài tập */}
         <div className="form-group">
           <label className="form-label" htmlFor="title">
             Tên bài tập / Đồ án <span className="required">*</span>
@@ -206,77 +199,21 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
           )}
         </div>
 
-        {/* Field 3: Hạn nộp (Date + Time Pickers + Quick presets) */}
         <div className="form-group">
           <label className="form-label" htmlFor="dueDate">
             Hạn nộp (Ngày & Giờ) <span className="required">*</span>
           </label>
-          <div className="date-time-row">
-            <div className="date-input-wrap">
-              <label className="date-time-sub-label" htmlFor="dueDateDate">Ngày</label>
-              <input
-                id="dueDateDate"
-                type="date"
-                className={`form-input font-mono ${
-                  touched.dueDate && errors.dueDate ? 'input-error' : ''
-                }`}
-                value={values.dueDate ? values.dueDate.split('T')[0] : ''}
-                onChange={(e) => {
-                  const timePart = values.dueDate ? values.dueDate.split('T')[1] || '23:59' : '23:59';
-                  handleChange('dueDate', `${e.target.value}T${timePart}`);
-                }}
-                onBlur={() => handleBlur('dueDate')}
-              />
-            </div>
-            <div className="time-input-wrap">
-              <label className="date-time-sub-label" htmlFor="dueDateTime">Giờ</label>
-              <input
-                id="dueDateTime"
-                type="time"
-                className={`form-input font-mono ${
-                  touched.dueDate && errors.dueDate ? 'input-error' : ''
-                }`}
-                value={values.dueDate ? values.dueDate.split('T')[1] || '23:59' : '23:59'}
-                onChange={(e) => {
-                  const datePart = values.dueDate ? values.dueDate.split('T')[0] : '';
-                  handleChange('dueDate', `${datePart}T${e.target.value}`);
-                }}
-                onBlur={() => handleBlur('dueDate')}
-              />
-            </div>
-          </div>
+          <CustomDateTimePicker
+            value={values.dueDate}
+            onChange={(val) => handleChange('dueDate', val)}
+            onBlur={() => handleBlur('dueDate')}
+            hasError={Boolean(touched.dueDate && errors.dueDate)}
+          />
           {touched.dueDate && errors.dueDate && (
             <p className="field-error-msg">{errors.dueDate}</p>
           )}
-
-          {/* Quick preset buttons */}
-          <div className="quick-presets-row">
-            <span className="preset-label">Chọn nhanh:</span>
-            <button
-              type="button"
-              className="btn-preset"
-              onClick={() => setQuickDueDate(1)}
-            >
-              +1 ngày (Ngày mai)
-            </button>
-            <button
-              type="button"
-              className="btn-preset"
-              onClick={() => setQuickDueDate(3)}
-            >
-              +3 ngày
-            </button>
-            <button
-              type="button"
-              className="btn-preset"
-              onClick={() => setQuickDueDate(7)}
-            >
-              +1 tuần
-            </button>
-          </div>
         </div>
 
-        {/* Field 4: Độ ưu tiên */}
         <div className="form-group">
           <label className="form-label">
             Độ ưu tiên <span className="required">*</span>
@@ -307,7 +244,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
           </div>
         </div>
 
-        {/* Field 5: Ghi chú / Mô tả (Optional) */}
         <div className="form-group">
           <label className="form-label" htmlFor="description">
             Ghi chú / Yêu cầu chi tiết (Tùy chọn)
@@ -322,7 +258,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
           />
         </div>
 
-        {/* Actions Footer */}
         <div className="modal-actions-footer">
           <button
             type="button"

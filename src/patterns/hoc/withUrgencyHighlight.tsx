@@ -1,10 +1,4 @@
-/**
- * BUỔI 2: REACT DESIGN PATTERNS - HIGHER-ORDER COMPONENT (HOC)
- * File: src/patterns/hoc/withUrgencyHighlight.tsx
- * 
- * HOC tự động kiểm tra tính khẩn cấp của bài tập và bọc viền phát sáng (Glow / Pulse border)
- * cho bất kỳ Component thẻ nào
- */
+
 
 import React from 'react';
 import type { Assignment } from '../../types/assignment.types';

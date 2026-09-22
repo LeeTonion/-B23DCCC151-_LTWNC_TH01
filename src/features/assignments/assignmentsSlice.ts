@@ -1,8 +1,4 @@
-/**
- * BUỔI 3: REDUX TOOLKIT + TYPESCRIPT - SLICE
- * File: src/features/assignments/assignmentsSlice.ts
- * Quản lý State của Feature Assignments bao gồm ExtraReducers cho AsyncThunks
- */
+
 
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { LoadingStatus } from '../../types/api.types';
@@ -33,8 +29,7 @@ export interface AssignmentsState {
   items: Assignment[];
   status: LoadingStatus;
   error: string | null;
-  
-  // UI Filter & Search State
+
   filter: {
     status: StatusFilter;
     subject: string;
@@ -44,7 +39,6 @@ export interface AssignmentsState {
     sortOrder: SortOrder;
   };
 
-  // Toast Notifications
   toasts: ToastNotification[];
 }
 
@@ -107,9 +101,7 @@ export const assignmentsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // ---------------------------------------------------------
-    // FETCH ASSIGNMENTS
-    // ---------------------------------------------------------
+
     builder
       .addCase(fetchAssignments.pending, (state) => {
         state.status = 'loading';
@@ -124,9 +116,6 @@ export const assignmentsSlice = createSlice({
         state.error = action.payload || 'Lỗi khi tải dữ liệu bài tập';
       });
 
-    // ---------------------------------------------------------
-    // ADD ASSIGNMENT
-    // ---------------------------------------------------------
     builder.addCase(addAssignment.fulfilled, (state, action) => {
       state.items.unshift(action.payload);
       state.toasts.push({
@@ -136,9 +125,6 @@ export const assignmentsSlice = createSlice({
       });
     });
 
-    // ---------------------------------------------------------
-    // TOGGLE ASSIGNMENT
-    // ---------------------------------------------------------
     builder.addCase(toggleAssignment.fulfilled, (state, action) => {
       const index = state.items.findIndex((item) => item.id === action.payload.id);
       if (index !== -1) {
@@ -153,9 +139,6 @@ export const assignmentsSlice = createSlice({
       });
     });
 
-    // ---------------------------------------------------------
-    // UPDATE ASSIGNMENT
-    // ---------------------------------------------------------
     builder.addCase(updateAssignment.fulfilled, (state, action) => {
       const index = state.items.findIndex((item) => item.id === action.payload.id);
       if (index !== -1) {
@@ -168,9 +151,6 @@ export const assignmentsSlice = createSlice({
       });
     });
 
-    // ---------------------------------------------------------
-    // DELETE ASSIGNMENT
-    // ---------------------------------------------------------
     builder.addCase(deleteAssignment.fulfilled, (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
       state.toasts.push({
@@ -180,9 +160,6 @@ export const assignmentsSlice = createSlice({
       });
     });
 
-    // ---------------------------------------------------------
-    // RESET TO SAMPLE
-    // ---------------------------------------------------------
     builder.addCase(resetToSampleAssignments.fulfilled, (state, action) => {
       state.items = action.payload;
       state.toasts.push({

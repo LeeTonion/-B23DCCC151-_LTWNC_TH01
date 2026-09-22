@@ -1,7 +1,4 @@
-/**
- * Assignment Stats Banner Component
- * File: src/features/assignments/components/AssignmentStats.tsx
- */
+
 
 import React from 'react';
 import {
@@ -21,7 +18,7 @@ export const AssignmentStats: React.FC = () => {
   return (
     <section className="stats-section">
       <div className="stats-grid">
-        {/* Card 1: Tổng bài tập */}
+        
         <div className="stat-card stat-total">
           <div className="stat-icon-wrap">
             <BookOpen size={22} className="stat-icon" />
@@ -35,7 +32,6 @@ export const AssignmentStats: React.FC = () => {
           </div>
         </div>
 
-        {/* Card 2: Đang thực hiện */}
         <div className="stat-card stat-pending">
           <div className="stat-icon-wrap">
             <Clock size={22} className="stat-icon" />
@@ -49,7 +45,6 @@ export const AssignmentStats: React.FC = () => {
           </div>
         </div>
 
-        {/* Card 3: Cần nộp gấp (<24h) */}
         <div className="stat-card stat-urgent">
           <div className="stat-icon-wrap">
             <Flame size={22} className="stat-icon" />
@@ -63,7 +58,6 @@ export const AssignmentStats: React.FC = () => {
           </div>
         </div>
 
-        {/* Card 4: Quá hạn */}
         <div className="stat-card stat-overdue">
           <div className="stat-icon-wrap">
             <AlertCircle size={22} className="stat-icon" />
@@ -77,7 +71,6 @@ export const AssignmentStats: React.FC = () => {
           </div>
         </div>
 
-        {/* Card 5: Đã hoàn thành */}
         <div className="stat-card stat-completed">
           <div className="stat-icon-wrap">
             <CheckCircle2 size={22} className="stat-icon" />
@@ -88,7 +81,7 @@ export const AssignmentStats: React.FC = () => {
               <span className="stat-value">{stats.completed}</span>
               <span className="stat-sub">({stats.completionRate}%)</span>
             </div>
-            {/* Progress bar */}
+            
             <div className="stat-progress-bg">
               <div
                 className="stat-progress-fill"

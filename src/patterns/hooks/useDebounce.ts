@@ -1,8 +1,4 @@
-/**
- * BUỔI 2: REACT DESIGN PATTERNS - CUSTOM HOOKS
- * File: src/patterns/hooks/useDebounce.ts
- * Minh họa Generic Debounce Hook
- */
+
 
 import { useState, useEffect } from 'react';
 

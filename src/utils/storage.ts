@@ -1,7 +1,4 @@
-/**
- * Generic Type-Safe LocalStorage Manager
- * File: src/utils/storage.ts
- */
+
 
 export class LocalStorageManager<T> {
   constructor(private readonly key: string, private readonly fallback: T) {}

@@ -1,8 +1,4 @@
-/**
- * BUỔI 2: REACT DESIGN PATTERNS - CUSTOM HOOK NÂNG CAO
- * File: src/patterns/hooks/useFormValidation.ts
- * Generic Form State Hook với quản lý Errors, Touched và Submit Handler
- */
+
 
 import { useState, useCallback, type FormEvent } from 'react';
 
@@ -29,7 +25,6 @@ export function useFormValidation<T extends Record<string, any>>({
   const [touched, setTouched] = useState<FormTouched<T>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Validate 1 field cụ thể
   const validateField = useCallback(
     <K extends keyof T>(field: K, value: T[K], currentValues: T): string | null => {
       if (!validationSchema || !validationSchema[field]) return null;
@@ -39,7 +34,6 @@ export function useFormValidation<T extends Record<string, any>>({
     [validationSchema]
   );
 
-  // Validate toàn bộ form
   const validateAll = useCallback(
     (currentValues: T): FormErrors<T> => {
       if (!validationSchema) return {};
@@ -59,7 +53,6 @@ export function useFormValidation<T extends Record<string, any>>({
     [validationSchema, validateField]
   );
 
-  // Thay đổi giá trị 1 field
   const handleChange = useCallback(
     <K extends keyof T>(field: K, value: T[K]) => {
       setValues((prev) => {
@@ -77,7 +70,6 @@ export function useFormValidation<T extends Record<string, any>>({
     [touched, validateField]
   );
 
-  // Đánh dấu field đã blur
   const handleBlur = useCallback(
     <K extends keyof T>(field: K) => {
       setTouched((prev) => ({ ...prev, [field]: true }));
@@ -87,7 +79,6 @@ export function useFormValidation<T extends Record<string, any>>({
     [values, validateField]
   );
 
-  // Reset form về giá trị ban đầu
   const resetForm = useCallback(
     (newValues?: T) => {
       setValues(newValues || initialValues);
@@ -98,12 +89,10 @@ export function useFormValidation<T extends Record<string, any>>({
     [initialValues]
   );
 
-  // Submit form
   const handleSubmit = useCallback(
     async (e?: FormEvent) => {
       if (e) e.preventDefault();
 
-      // Đánh dấu tất cả là đã touch
       const allTouched: FormTouched<T> = {};
       for (const key in values) {
         allTouched[key as keyof T] = true;

@@ -1,10 +1,5 @@
-/**
- * BUỔI 1: TYPESCRIPT NÂNG CAO - GENERICS
- * File: src/types/api.types.ts
- * Minh họa Generic Response Types & Async Loading State
- */
 
-/** Cấu trúc phản hồi API chuẩn hóa với Generic Type <T> */
+
 export interface ApiResponse<T> {
   success: boolean;
   data: T;
@@ -13,7 +8,6 @@ export interface ApiResponse<T> {
   statusCode: number;
 }
 
-/** Cấu trúc phản hồi phân trang Generic */
 export interface PaginatedResponse<T> {
   items: T[];
   total: number;
@@ -22,7 +16,6 @@ export interface PaginatedResponse<T> {
   totalPages: number;
 }
 
-/** Generic Async Status State cho Redux Store */
 export type LoadingStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 export interface AsyncEntityState<T> {

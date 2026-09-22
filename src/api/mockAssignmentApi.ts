@@ -1,9 +1,4 @@
-/**
- * MOCK API GIẢ LẬP
- * File: src/api/mockAssignmentApi.ts
- * 
- * Giả lập API server với Promise, setTimeout, lưu cache vào LocalStorage
- */
+
 
 import type { ApiResponse } from '../types/api.types';
 import type { Assignment, CreateAssignmentDTO, UpdateAssignmentDTO } from '../types/assignment.types';
@@ -12,11 +7,9 @@ import { LocalStorageManager } from '../utils/storage';
 const STORAGE_KEY = 'student_deadline_tracker_data_v1';
 const storage = new LocalStorageManager<Assignment[]>(STORAGE_KEY, []);
 
-// Danh sách dữ liệu mẫu ban đầu
 function createInitialSampleData(): Assignment[] {
   const now = new Date();
-  
-  // Hàm tạo thời gian tương đối so với hiện tại
+
   const addHours = (hours: number): string => {
     const d = new Date(now.getTime() + hours * 60 * 60 * 1000);
     return d.toISOString();
@@ -35,7 +28,7 @@ function createInitialSampleData(): Assignment[] {
       subject: 'Lập trình Web Nâng Cao',
       title: 'Lab 4 — Triển khai Redux Toolkit và Custom Hooks',
       description: 'Hoàn thiện tính năng quản lý danh sách sản phẩm yêu thích và student deadline tracker.',
-      dueDate: addHours(6), // Sắp đến hạn trong 6 tiếng (URGENT)
+      dueDate: addHours(6), 
       priority: 'HIGH',
       isCompleted: false,
       completedAt: null,
@@ -47,7 +40,7 @@ function createInitialSampleData(): Assignment[] {
       subject: 'Cơ sở Dữ liệu Phân tán',
       title: 'Bài tập Lớn — Thiết kế Sharding & Replication MongoDB',
       description: 'Viết báo cáo đánh giá hiệu năng giữa Master-Slave và Raft consensus.',
-      dueDate: addDays(2, 17, 0), // Còn 2 ngày (WARNING)
+      dueDate: addDays(2, 17, 0), 
       priority: 'HIGH',
       isCompleted: false,
       completedAt: null,
@@ -59,7 +52,7 @@ function createInitialSampleData(): Assignment[] {
       subject: 'Trí tuệ Nhân tạo',
       title: 'Assignment 2 — Thuật toán tìm kiếm A* và MiniMax Game Caro',
       description: 'Cài đặt thuật toán cắt tỉa Alpha-Beta Pruning trên giao diện React / Canvas.',
-      dueDate: addDays(5, 23, 59), // Còn 5 ngày (NORMAL)
+      dueDate: addDays(5, 23, 59), 
       priority: 'MEDIUM',
       isCompleted: false,
       completedAt: null,
@@ -71,7 +64,7 @@ function createInitialSampleData(): Assignment[] {
       subject: 'Kiến trúc Phần mềm',
       title: 'Tiểu luận — Phân tích Microservices vs Modular Monolith',
       description: 'Trình bày ca sử dụng thực tế của Uber và Netflix khi chuyển dịch kiến trúc.',
-      dueDate: addHours(-26), // Quá hạn 1 ngày (OVERDUE)
+      dueDate: addHours(-26), 
       priority: 'MEDIUM',
       isCompleted: false,
       completedAt: null,
@@ -83,7 +76,7 @@ function createInitialSampleData(): Assignment[] {
       subject: 'An toàn Thông tin',
       title: 'Thực hành — Phân tích lỗ hổng SQL Injection & XSS',
       description: 'Khai thác mẫu trên môi trường DVWA và đề xuất giải pháp phòng thủ.',
-      dueDate: addDays(-4), // Đã hoàn thành (COMPLETED)
+      dueDate: addDays(-4), 
       priority: 'LOW',
       isCompleted: true,
       completedAt: addDays(-4, 20, 30),
@@ -95,7 +88,7 @@ function createInitialSampleData(): Assignment[] {
       subject: 'Mạng Máy tính Nâng Cao',
       title: 'Cấu hình Định tuyến OSPF & BGP trên GNS3',
       description: 'Mô phỏng mạng liên vùng autonomous system và kiểm tra failover link.',
-      dueDate: addDays(7, 12, 0), // Còn 7 ngày
+      dueDate: addDays(7, 12, 0), 
       priority: 'LOW',
       isCompleted: false,
       completedAt: null,
@@ -106,7 +99,7 @@ function createInitialSampleData(): Assignment[] {
 }
 
 export const mockAssignmentApi = {
-  /** Lấy toàn bộ danh sách bài tập (có delay mô phỏng mạng) */
+  
   async getAllAssignments(): Promise<ApiResponse<Assignment[]>> {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -122,11 +115,10 @@ export const mockAssignmentApi = {
           timestamp: new Date().toISOString(),
           statusCode: 200,
         });
-      }, 500); // 500ms delay
+      }, 500); 
     });
   },
 
-  /** Thêm bài tập mới */
   async createAssignment(dto: CreateAssignmentDTO): Promise<ApiResponse<Assignment>> {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -155,7 +147,6 @@ export const mockAssignmentApi = {
     });
   },
 
-  /** Đổi trạng thái hoàn thành */
   async toggleAssignment(id: string): Promise<ApiResponse<Assignment>> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -192,7 +183,6 @@ export const mockAssignmentApi = {
     });
   },
 
-  /** Cập nhật bài tập */
   async updateAssignment(id: string, dto: UpdateAssignmentDTO): Promise<ApiResponse<Assignment>> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -225,7 +215,6 @@ export const mockAssignmentApi = {
     });
   },
 
-  /** Xóa bài tập */
   async deleteAssignment(id: string): Promise<ApiResponse<{ id: string }>> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -251,7 +240,6 @@ export const mockAssignmentApi = {
     });
   },
 
-  /** Reset về dữ liệu mẫu mặc định */
   async resetToSampleData(): Promise<ApiResponse<Assignment[]>> {
     return new Promise((resolve) => {
       setTimeout(() => {

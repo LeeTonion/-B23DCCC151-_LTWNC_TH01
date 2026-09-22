@@ -1,7 +1,4 @@
-/**
- * UI Header Component
- * File: src/components/common/Header.tsx
- */
+
 
 import React from 'react';
 import { PlusCircle, RotateCcw, Clock, Sparkles } from 'lucide-react';

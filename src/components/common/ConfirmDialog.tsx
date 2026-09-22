@@ -1,7 +1,4 @@
-/**
- * Confirm Dialog Component
- * File: src/components/common/ConfirmDialog.tsx
- */
+
 
 import React from 'react';
 import { AlertTriangle } from 'lucide-react';

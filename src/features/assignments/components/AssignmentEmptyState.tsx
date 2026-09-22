@@ -1,7 +1,4 @@
-/**
- * Empty State Component
- * File: src/features/assignments/components/AssignmentEmptyState.tsx
- */
+
 
 import React from 'react';
 import { BookCheck, FilterX, PlusCircle } from 'lucide-react';
